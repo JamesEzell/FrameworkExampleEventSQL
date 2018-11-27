@@ -9,7 +9,7 @@ using DBDataReader = System.Data.SqlClient.SqlDataReader;//creates an alias to a
 using System.Data.SqlClient;
 using System.Xml.Serialization;
 
-namespace EventPropsClassses
+namespace EventPropsClasses
 {
     public class CustomerProps
     {
@@ -17,7 +17,7 @@ namespace EventPropsClassses
         /// <summary>
         /// 
         /// </summary>
-        public int ID = Int32.MinValue;
+        public int customerID = Int32.MinValue;
 
         /// <summary>
         /// 
@@ -56,7 +56,7 @@ namespace EventPropsClassses
         public object Clone()
         {
             CustomerProps c = new CustomerProps();
-            c.ID = this.ID;
+            c.customerID = this.customerID;
             c.name = this.name;
             c.address = this.address;
             c.city = this.city;
@@ -79,7 +79,7 @@ namespace EventPropsClassses
             XmlSerializer serializer = new XmlSerializer(this.GetType());
             StringReader reader = new StringReader(xml);
             CustomerProps c = (CustomerProps)serializer.Deserialize(reader);
-            this.ID = c.ID;
+            this.customerID = c.customerID;
             this.name = c.name;
             this.address = c.address;
             this.city = c.city;
@@ -90,7 +90,7 @@ namespace EventPropsClassses
 
         public void SetState(DBDataReader dr)
         {
-            this.ID = (Int32)dr["CustomerID"];
+            this.customerID = (Int32)dr["CustomerID"];
             this.name = (string)dr["Name"];
             this.address = (string)dr["Address"];
             this.city = (string)dr["City"];

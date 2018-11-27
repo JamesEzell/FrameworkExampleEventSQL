@@ -19,6 +19,7 @@ using DBParameter = System.Data.SqlClient.SqlParameter;
 using DBDataReader = System.Data.SqlClient.SqlDataReader;
 using DBDataAdapter = System.Data.SqlClient.SqlDataAdapter;
 
+
 namespace EventDBClasses
 {
     public class CustomerSQLDB : DBBase, IReadDB, IWriteDB
@@ -119,28 +120,31 @@ namespace EventDBClasses
         public IBaseProps Create(IBaseProps p)
         {
             int rowsAffected = 0;
-            EventProps props = (EventProps)p;
+            CustomerProps props = (CustomerProps)p;
 
             DBCommand command = new DBCommand();
             command.CommandText = "usp_EventCreate";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@EventID", SqlDbType.Int);
-            command.Parameters.Add("@UserID", SqlDbType.Int);
-            command.Parameters.Add("@EventTitle", SqlDbType.NVarChar);
-            command.Parameters.Add("@EventDescription", SqlDbType.NVarChar);
-            command.Parameters.Add("@EventDate", SqlDbType.Date);
+            command.Parameters.Add("@CustomerID", SqlDbType.Int);
+            command.Parameters.Add("@Name", SqlDbType.NVarChar);
+            command.Parameters.Add("@Address", SqlDbType.NVarChar);
+            command.Parameters.Add("@City", SqlDbType.NVarChar);
+            command.Parameters.Add("@State", SqlDbType.Char);
+            command.Parameters.Add("@ZipCode", SqlDbType.Char);
             command.Parameters[0].Direction = ParameterDirection.Output;
-            command.Parameters["@UserID"].Value = props.userID;
-            command.Parameters["@EventTitle"].Value = props.title;
-            command.Parameters["@EventDescription"].Value = props.description;
-            command.Parameters["@EventDate"].Value = props.date;
+            command.Parameters["@CustomerID"].Value = props.customerID;
+            command.Parameters["@Name"].Value = props.name;
+            command.Parameters["@Address"].Value = props.address;
+            command.Parameters["@City"].Value = props.city;
+            command.Parameters["@State"].Value = props.state;
+            command.Parameters["@ZipCode"].Value = props.zipCode;
 
             try
             {
                 rowsAffected = RunNonQueryProcedure(command);
                 if (rowsAffected == 1)
                 {
-                    props.ID = (int)command.Parameters[0].Value;
+                    props.customerID = (int)command.Parameters[0].Value;
                     props.ConcurrencyID = 1;
                     return props;
                 }

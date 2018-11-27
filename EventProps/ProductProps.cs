@@ -17,7 +17,7 @@ namespace EventPropsClasses
         /// <summary>
         /// 
         /// </summary>
-        public int ID = Int32.MinValue;
+        public int productID = Int32.MinValue;
 
         /// <summary>
         /// 
@@ -51,7 +51,7 @@ namespace EventPropsClasses
         public object Clone()
         {
             ProductProps p = new ProductProps();
-            p.ID = this.ID;
+            p.productID = this.productID;
             p.quantity = this.quantity;
             p.code = this.code;
             p.price = this.price;
@@ -73,7 +73,7 @@ namespace EventPropsClasses
             XmlSerializer serializer = new XmlSerializer(this.GetType());
             StringReader reader = new StringReader(xml);
             ProductProps p = (ProductProps)serializer.Deserialize(reader);
-            this.ID = p.ID;
+            this.productID = p.productID;
             this.quantity = p.quantity;
             this.code = p.code;
             this.price = p.price;
@@ -83,7 +83,7 @@ namespace EventPropsClasses
 
         public void SetState(DBDataReader dr)
         {
-            this.ID = (Int32)dr["ProductID"];
+            this.productID = (Int32)dr["ProductID"];
             this.quantity = (Int32)dr["OnHandQuantity"];
             this.code = (string)dr["ProductCode"];
             this.price = (decimal)dr["UnitPrice"];

@@ -12,11 +12,13 @@ namespace EventClasses
 {
     public class Product : BaseBusiness
     {
+        #region Properties
+
         public int ID
         {
             get
             {
-                return ((ProductProps)mProps).ID;
+                return ((ProductProps)mProps).productID;
             }
         }
 
@@ -121,8 +123,8 @@ namespace EventClasses
                 }
             }
         }
+        #endregion
 
-    
         #region constructors
         /// <summary>
         /// Default constructor - does nothing.
