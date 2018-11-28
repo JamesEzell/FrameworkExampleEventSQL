@@ -14,13 +14,7 @@ namespace EventClasses
     {
         #region Properties
 
-        public int ID
-        {
-            get
-            {
-                return ((ProductProps)mProps).productID;
-            }
-        }
+        public int ID => ((ProductProps)mProps).productID;
 
         public string Description
         {

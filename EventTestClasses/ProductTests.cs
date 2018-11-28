@@ -68,5 +68,20 @@ namespace EventTestClasses
 
         }
 
+        [Test]
+        public void TestGetState()
+        {
+            ProductProps p = new ProductProps();
+            p.productID = 100;
+            p.code = "XXXX";
+            p.description = "Test product";
+            p.quantity = 2;
+            p.price = 99.99m;
+            string xml = p.GetState();
+            Assert.Greater(xml.Length, 0);
+            Assert.True(xml.Contains(p.description));
+            Console.WriteLine(xml);
+        }
+
     }
 }

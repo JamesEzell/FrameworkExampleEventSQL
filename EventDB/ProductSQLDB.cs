@@ -40,13 +40,13 @@ namespace EventDBClasses
         public IBaseProps Retrieve(Object key)
         {
             DBDataReader data = null;
-            EventProps props = new EventProps();
+            ProductProps props = new ProductProps();
             DBCommand command = new DBCommand();
 
-            command.CommandText = "usp_EventSelect";
+            command.CommandText = "usp_ProductSelect";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@EventID", SqlDbType.Int);
-            command.Parameters["@EventID"].Value = (Int32)key;
+            command.Parameters.Add("@ProductID", SqlDbType.Int);
+            command.Parameters["@ProductID"].Value = (Int32)key;
 
             try
             {
@@ -80,9 +80,9 @@ namespace EventDBClasses
         // retrieves a list of objects
         public object RetrieveAll(Type type)
         {
-            List<EventProps> list = new List<EventProps>();
+            List<ProductProps> list = new List<ProductProps>();
             DBDataReader reader = null;
-            EventProps props;
+            ProductProps props;
 
             try
             {
@@ -91,7 +91,7 @@ namespace EventDBClasses
                 {
                     while (reader.Read())
                     {
-                        props = new EventProps();
+                        props = new ProductProps();
                         props.SetState(reader);
                         list.Add(props);
                     }
@@ -258,10 +258,10 @@ namespace EventDBClasses
             int rowsAffected = 0;
 
             DBCommand command = new DBCommand();
-            command.CommandText = "usp_EventStaticDelete";
+            command.CommandText = "usp_ProductStaticDelete";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@EventID", SqlDbType.Int);
-            command.Parameters["@EventID"].Value = key;
+            command.Parameters.Add("@ProductID", SqlDbType.Int);
+            command.Parameters["@ProductID"].Value = key;
 
             try
             {
@@ -288,29 +288,29 @@ namespace EventDBClasses
         // Shows you how to use a data table rather than a list of objects
         public DataTable RetrieveTable()
         {
-            DataTable t = new DataTable("EventList");
+            DataTable t = new DataTable("ProductList");
             DBDataReader reader = null;
             DataRow row;
 
             t.Columns.Add("ID", System.Type.GetType("System.Int32"));
-            t.Columns.Add("UserID", System.Type.GetType("System.Int32"));
-            t.Columns.Add("Date", System.Type.GetType("System.DateTime"));
-            t.Columns.Add("Title", System.Type.GetType("System.String"));
             t.Columns.Add("Description", System.Type.GetType("System.String"));
+            t.Columns.Add("Code", System.Type.GetType("System.String"));
+            t.Columns.Add("Price", System.Type.GetType("System.Decimal"));
+            t.Columns.Add("Quantity", System.Type.GetType("System.Int"));
 
             try
             {
-                reader = RunProcedure("usp_EventSelectAll");
+                reader = RunProcedure("usp_ProductSelectAll");
                 if (!reader.IsClosed)
                 {
                     while (reader.Read())
                     {
                         row = t.NewRow();
-                        row["ID"] = reader["EventId"];
-                        row["UserID"] = reader["UserId"];
-                        row["Date"] = reader["EventDate"];
-                        row["Title"] = reader["EventTitle"];
-                        row["Description"] = reader["EventDescription"];
+                        row["ID"] = reader["ProductId"];
+                        row["Description"] = reader["ProductDescription"];
+                        row["Code"] = reader["ProductCode"];
+                        row["Price"] = reader["ProductPrice"];
+                        row["Quantity"] = reader["ProductQuantity"];
                         t.Rows.Add(row);
                     }
                 }

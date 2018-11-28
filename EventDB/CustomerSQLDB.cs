@@ -41,13 +41,13 @@ namespace EventDBClasses
         public IBaseProps Retrieve(Object key)
         {
             DBDataReader data = null;
-            EventProps props = new EventProps();
+            CustomerProps props = new CustomerProps();
             DBCommand command = new DBCommand();
 
-            command.CommandText = "usp_EventSelect";
+            command.CommandText = "usp_CustomerSelect";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@EventID", SqlDbType.Int);
-            command.Parameters["@EventID"].Value = (Int32)key;
+            command.Parameters.Add("@CustomerID", SqlDbType.Int);
+            command.Parameters["@CustomerID"].Value = (Int32)key;
 
             try
             {
@@ -81,9 +81,9 @@ namespace EventDBClasses
         // retrieves a list of objects
         public object RetrieveAll(Type type)
         {
-            List<EventProps> list = new List<EventProps>();
+            List<CustomerProps> list = new List<CustomerProps>();
             DBDataReader reader = null;
-            EventProps props;
+            CustomerProps props;
 
             try
             {
@@ -92,7 +92,7 @@ namespace EventDBClasses
                 {
                     while (reader.Read())
                     {
-                        props = new EventProps();
+                        props = new CustomerProps();
                         props.SetState(reader);
                         list.Add(props);
                     }
@@ -261,10 +261,10 @@ namespace EventDBClasses
             int rowsAffected = 0;
 
             DBCommand command = new DBCommand();
-            command.CommandText = "usp_EventStaticDelete";
+            command.CommandText = "usp_CustomerStaticDelete";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@EventID", SqlDbType.Int);
-            command.Parameters["@EventID"].Value = key;
+            command.Parameters.Add("@CustomerID", SqlDbType.Int);
+            command.Parameters["@CustomerID"].Value = key;
 
             try
             {
@@ -291,7 +291,7 @@ namespace EventDBClasses
         // Shows you how to use a data table rather than a list of objects
         public DataTable RetrieveTable()
         {
-            DataTable t = new DataTable("EventList");
+            DataTable t = new DataTable("CustomerList");
             DBDataReader reader = null;
             DataRow row;
 
@@ -303,7 +303,7 @@ namespace EventDBClasses
 
             try
             {
-                reader = RunProcedure("usp_EventSelectAll");
+                reader = RunProcedure("usp_CustomerSelectAll");
                 if (!reader.IsClosed)
                 {
                     while (reader.Read())
