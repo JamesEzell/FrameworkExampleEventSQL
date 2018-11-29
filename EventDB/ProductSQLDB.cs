@@ -130,7 +130,6 @@ namespace EventDBClasses
             command.Parameters.Add("@UnitPrice", SqlDbType.Money);
             command.Parameters.Add("@OnHandQuantity", SqlDbType.Int);
             command.Parameters[0].Direction = ParameterDirection.Output;
-            command.Parameters["@ProductID"].Value = props.productID;
             command.Parameters["@ProductCode"].Value = props.code;
             command.Parameters["@Description"].Value = props.description;
             command.Parameters["@UnitPrice"].Value = props.price;
@@ -164,15 +163,15 @@ namespace EventDBClasses
         /// </summary>
         public bool Delete(IBaseProps p)
         {
-            EventProps props = (EventProps)p;
+            ProductProps props = (ProductProps)p;
             int rowsAffected = 0;
 
             DBCommand command = new DBCommand();
             command.CommandText = "usp_EventDelete";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@EventID", SqlDbType.Int);
+            command.Parameters.Add("@ProductID", SqlDbType.Int);
             command.Parameters.Add("@ConcurrencyID", SqlDbType.Int);
-            command.Parameters["@EventID"].Value = props.ID;
+            command.Parameters["@ProductID"].Value = props.productID;
             command.Parameters["@ConcurrencyID"].Value = props.ConcurrencyID;
 
             try
@@ -206,22 +205,22 @@ namespace EventDBClasses
         public bool Update(IBaseProps p)
         {
             int rowsAffected = 0;
-            EventProps props = (EventProps)p;
+            ProductProps props = (ProductProps)p;
 
             DBCommand command = new DBCommand();
-            command.CommandText = "usp_EventUpdate";
+            command.CommandText = "usp_ProductUpdate";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@EventID", SqlDbType.Int);
-            command.Parameters.Add("@UserID", SqlDbType.Int);
-            command.Parameters.Add("@EventTitle", SqlDbType.NVarChar);
-            command.Parameters.Add("@EventDescription", SqlDbType.NVarChar);
-            command.Parameters.Add("@EventDate", SqlDbType.Date);
+            command.Parameters.Add("@ProductID", SqlDbType.Int);
+            command.Parameters.Add("@ProductCode", SqlDbType.Char);
+            command.Parameters.Add("@ProductDescription", SqlDbType.VarChar);
+            command.Parameters.Add("@ProductPrice", SqlDbType.Money);
+            command.Parameters.Add("@ProductQuantity", SqlDbType.Int);
             command.Parameters.Add("@ConcurrencyID", SqlDbType.Int);
-            command.Parameters["@EventID"].Value = props.ID;
-            command.Parameters["@UserID"].Value = props.userID;
-            command.Parameters["@EventTitle"].Value = props.title;
-            command.Parameters["@EventDescription"].Value = props.description;
-            command.Parameters["@EventDate"].Value = props.date;
+            command.Parameters["@ProductID"].Value = props.productID;
+            command.Parameters["@ProductCode"].Value = props.code;
+            command.Parameters["@ProductDescription"].Value = props.description;
+            command.Parameters["@ProductPrice"].Value = props.price;
+            command.Parameters["@ProductQuantity"].Value = props.quantity;
             command.Parameters["@ConcurrencyID"].Value = props.ConcurrencyID;
 
             try

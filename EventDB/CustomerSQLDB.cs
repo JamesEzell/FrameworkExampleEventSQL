@@ -123,7 +123,7 @@ namespace EventDBClasses
             CustomerProps props = (CustomerProps)p;
 
             DBCommand command = new DBCommand();
-            command.CommandText = "usp_EventCreate";
+            command.CommandText = "usp_CustomerCreate";
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CustomerID", SqlDbType.Int);
             command.Parameters.Add("@Name", SqlDbType.NVarChar);
@@ -132,7 +132,6 @@ namespace EventDBClasses
             command.Parameters.Add("@State", SqlDbType.Char);
             command.Parameters.Add("@ZipCode", SqlDbType.Char);
             command.Parameters[0].Direction = ParameterDirection.Output;
-            command.Parameters["@CustomerID"].Value = props.customerID;
             command.Parameters["@Name"].Value = props.name;
             command.Parameters["@Address"].Value = props.address;
             command.Parameters["@City"].Value = props.city;
@@ -167,15 +166,15 @@ namespace EventDBClasses
         /// </summary>
         public bool Delete(IBaseProps p)
         {
-            EventProps props = (EventProps)p;
+            CustomerProps props = (CustomerProps)p;
             int rowsAffected = 0;
 
             DBCommand command = new DBCommand();
-            command.CommandText = "usp_EventDelete";
+            command.CommandText = "usp_CustomerDelete";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@EventID", SqlDbType.Int);
+            command.Parameters.Add("@CustomerID", SqlDbType.Int);
             command.Parameters.Add("@ConcurrencyID", SqlDbType.Int);
-            command.Parameters["@EventID"].Value = props.ID;
+            command.Parameters["@CustomerID"].Value = props.customerID;
             command.Parameters["@ConcurrencyID"].Value = props.ConcurrencyID;
 
             try
@@ -209,22 +208,24 @@ namespace EventDBClasses
         public bool Update(IBaseProps p)
         {
             int rowsAffected = 0;
-            EventProps props = (EventProps)p;
+            CustomerProps props = (CustomerProps)p;
 
             DBCommand command = new DBCommand();
             command.CommandText = "usp_EventUpdate";
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@EventID", SqlDbType.Int);
-            command.Parameters.Add("@UserID", SqlDbType.Int);
-            command.Parameters.Add("@EventTitle", SqlDbType.NVarChar);
-            command.Parameters.Add("@EventDescription", SqlDbType.NVarChar);
-            command.Parameters.Add("@EventDate", SqlDbType.Date);
+            command.Parameters.Add("@CustomerID", SqlDbType.Int);
+            command.Parameters.Add("@CustomerName", SqlDbType.VarChar);
+            command.Parameters.Add("@CustomerAddress", SqlDbType.VarChar);
+            command.Parameters.Add("@CustomerCity", SqlDbType.VarChar);
+            command.Parameters.Add("@CustomerState", SqlDbType.Char);
+            command.Parameters.Add("@CustomerZipCode", SqlDbType.Char);
             command.Parameters.Add("@ConcurrencyID", SqlDbType.Int);
-            command.Parameters["@EventID"].Value = props.ID;
-            command.Parameters["@UserID"].Value = props.userID;
-            command.Parameters["@EventTitle"].Value = props.title;
-            command.Parameters["@EventDescription"].Value = props.description;
-            command.Parameters["@EventDate"].Value = props.date;
+            command.Parameters["@CustomerID"].Value = props.customerID;
+            command.Parameters["@CustomerName"].Value = props.name;
+            command.Parameters["@CustomerAddress"].Value = props.address;
+            command.Parameters["@CustomerCity"].Value = props.city;
+            command.Parameters["@CustomerState"].Value = props.state;
+            command.Parameters["@CustomerZipCode"].Value = props.zipCode;
             command.Parameters["@ConcurrencyID"].Value = props.ConcurrencyID;
 
             try

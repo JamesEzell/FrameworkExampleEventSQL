@@ -17,7 +17,7 @@ namespace EventTestClasses
         public void SetUpAllTests()
         {
             p = new ProductProps();
-            p.ID = 1;
+            p.productID = 1;
             p.code = "XXXX";
             p.description = "test product";
             p.price = 99.99m;
@@ -30,15 +30,15 @@ namespace EventTestClasses
         public void TestClone()
         {
             ProductProps p2 = (ProductProps)p.Clone();
-            Assert.AreEqual(p.ID, p2.ID);
+            Assert.AreEqual(p.productID, p2.productID);
             Assert.AreEqual(p.code, p2.code);
             Assert.AreEqual(p.description, p2.description);
             Assert.AreEqual(p.price, p2.price);
             Assert.AreEqual(p.quantity, p2.quantity);
             Assert.AreEqual(p.ConcurrencyID, p2.ConcurrencyID);
 
-            p.ID = 4;
-            Assert.AreNotEqual(p.ID, p2.ID);
+            p.productID = 4;
+            Assert.AreNotEqual(p.productID, p2.productID);
 
         }
 
@@ -55,7 +55,7 @@ namespace EventTestClasses
             string pString = p.GetState();
             ProductProps p2 = new ProductProps();
             p2.SetState(pString);
-            Assert.AreEqual(p.ID, p2.ID);
+            Assert.AreEqual(p.productID, p2.productID);
             Assert.AreEqual(p.code, p2.code);
             Assert.AreEqual(p.description, p2.description);
             Assert.AreEqual(p.price, p2.price);

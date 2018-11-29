@@ -11,7 +11,8 @@ using System.Xml.Serialization;
 
 namespace EventPropsClasses
 {
-    public class CustomerProps
+    [Serializable()]
+    public class CustomerProps : IBaseProps
     {
         #region instance variables
         /// <summary>

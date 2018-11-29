@@ -123,10 +123,8 @@ namespace EventClasses
         /// <summary>
         /// Default constructor - does nothing.
         /// </summary>
-        public Product() : base()
-        {
-        }
-
+        public Product() : base() { }
+       
         /// <summary>
         /// One arg constructor.
         /// Calls methods SetUp(), SetRequiredRules(), 
@@ -135,9 +133,8 @@ namespace EventClasses
         /// <param name="cnString">DB connection string.
         /// This value is passed to the one arg BaseBusiness constructor, 
         /// which assigns the it to the protected member mConnectionString.</param>
-        public Product(string cnString) : base(cnString)
-        {
-        }
+        public Product(string cnString) : base(cnString) { }
+        
 
         /// <summary>
         /// Two arg constructor.
@@ -149,30 +146,29 @@ namespace EventClasses
         /// <param name="cnString">DB connection string.
         /// This value is passed to the one arg BaseBusiness constructor, 
         /// which assigns the it to the protected member mConnectionString.</param>
-        public Product(int key, string cnString) : base(key, cnString)
-        {
-        }
-        public Product(int key) : base(key)
-        {
-        }
+        public Product(int key, string cnString) : base(key, cnString) { }
+      
+        public Product(int key) : base(key) { }
+        
         // *** I added these 2 so that I could create a 
         // business object from a properties object
         // I added the new constructors to the base class
-        public Product(ProductProps props) : base(props)
-        {
-        }
-        public Product(ProductProps props, string cnString) : base(props, cnString)
-        {
-        }
+        public Product(ProductProps props) : base(props) { }
+        
+
+        public Product(ProductProps props, string cnString) : base(props, cnString) { }
+       
+
         protected override void SetRequiredRules()
         {
             mRules.RuleBroken("Code", true);
             mRules.RuleBroken("Description", true);
             mRules.RuleBroken("Price", true);
         }
-        protected override void SetDefaultProperties()
-        {
-        }
+
+        protected override void SetDefaultProperties() { }
+        
+
         protected override void SetUp()
         {
             mProps = new ProductProps();
@@ -190,10 +186,7 @@ namespace EventClasses
                 mdbWriteable = new ProductDB(this.mConnectionString);
             }
         }
-        public override object GetList()
-        {
-            throw new NotImplementedException();
-        }
+        public override object GetList() => throw new NotImplementedException();
         #endregion
     }
 }
